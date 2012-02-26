@@ -172,3 +172,28 @@ var stringToBaudArray = function( inString ) {
     }
     return baudArray;
 };
+
+var baudArrayToString = function( inArray ) {
+    var outArray = [];
+    var shift = "l"; // starts in letter position
+    for (var i = 0; i < inArray.length; i++) {
+        var b = inArray[i];
+        console.log(b);
+
+        // nasty array equality...
+        if ( !(b<[1,1,1,1,1]||b>[1,1,1,1,1])) {
+            console.log("letter shift");
+            shift = "l";
+        }
+        else if ( !(b<[1,1,0,1,1]||b>[1,1,0,1,1])) {
+            console.log("figure shift");
+            shift = "f";
+        }
+        else {
+            console.log("output with shift %s",shift);
+            outArray.push( baudToChar( b, shift ) );
+        }
+    }
+
+    return outArray.join("");
+};
