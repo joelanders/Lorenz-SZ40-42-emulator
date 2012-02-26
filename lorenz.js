@@ -1,4 +1,4 @@
-// converts a character to a Baudot array
+// converts a character to a Baudot sequence
 // "shift" is "l" or "f" (letter or figure)
 var charToBaud = function  ( aChar ) {
     var aTable = {};
@@ -147,4 +147,28 @@ var baudToChar = function( baudArray, shift ) {
     else if(shift === "f") {
         return fTable[baudArray]; }
     else { throw "incorrect shift"; }
+};
+
+var stringToBaudArray = function( inString ) {
+    var letters = "abcdefghijklmnopqrstuvwxyz";
+    var figures = "-?:$3!&#8'().,901457;2/6\" ";
+    var baudArray = [];
+    var shift = "l"; // starts in letter position
+    for (var i = 0; i < inString.length; i++) {
+        var l = inString[i];
+
+        // if letter, but shift is in figure position
+        if (letters.indexOf(l) != -1 && shift != "l") {
+            shift = "l";
+            baudArray.push( [1,1,1,1,1] );
+        }
+        // if figure, but shift is in letter position
+        else if (figures.indexOf(l) != -1 && shift != "f") {
+            shift = "f";
+            baudArray.push( [1,1,0,1,1] );
+        }
+
+        baudArray.push( charToBaud( l ) );
+    }
+    return baudArray;
 };
