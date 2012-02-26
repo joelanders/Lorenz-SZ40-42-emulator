@@ -70,3 +70,81 @@ var charToBaud = function  ( aChar ) {
     return aTable[aChar];
 
 };
+
+// converts Baudot code to character
+var baudToChar = function( baudArray, shift ) {
+    
+    var lTable = {};
+    lTable[[0,0,0,1,1]] = "a";
+    lTable[[1,1,0,0,1]] = "b";
+    lTable[[0,1,1,1,0]] = "c";
+    lTable[[0,1,0,0,1]] = "d";
+    lTable[[0,0,0,0,1]] = "e";
+    lTable[[0,1,1,0,1]] = "f";
+    lTable[[1,1,0,1,0]] = "g";
+    lTable[[1,0,1,0,0]] = "h";
+    lTable[[0,0,1,1,0]] = "i";
+    lTable[[0,1,0,1,1]] = "j";
+    lTable[[0,1,1,1,1]] = "k";
+    lTable[[1,0,0,1,0]] = "l";
+    lTable[[1,1,1,0,0]] = "m";
+    lTable[[0,1,1,0,0]] = "n";
+    lTable[[1,1,0,0,0]] = "o";
+    lTable[[1,0,1,1,0]] = "p";
+    lTable[[1,0,1,1,1]] = "q";
+    lTable[[0,1,0,1,0]] = "r";
+    lTable[[0,0,1,0,1]] = "s";
+    lTable[[1,0,0,0,0]] = "t";
+    lTable[[0,0,1,1,1]] = "u";
+    lTable[[1,1,1,1,0]] = "v";
+    lTable[[1,0,0,1,1]] = "w";
+    lTable[[1,1,1,0,1]] = "x";
+    lTable[[1,0,1,0,1]] = "y";
+    lTable[[1,0,0,0,1]] = "z";
+    lTable[[0,1,0,0,0]] = "CR";
+    lTable[[0,0,0,1,0]] = "LF";
+    lTable[[0,0,1,0,0]] = " ";
+    lTable[[1,1,0,1,1]] = "SF";
+    lTable[[0,0,0,0,0]] = "NL";
+    lTable[[1,1,1,1,1]] = "ZZ";
+
+    var fTable = {};
+    fTable[[0,0,0,1,1]] = "-";
+    fTable[[1,1,0,0,1]] = "?";
+    fTable[[0,1,1,1,0]] = ":";
+    fTable[[0,1,0,0,1]] = "$";
+    fTable[[0,0,0,0,1]] = "3";
+    fTable[[0,1,1,0,1]] = "!";
+    fTable[[1,1,0,1,0]] = "&";
+    fTable[[1,0,1,0,0]] = "#";
+    fTable[[0,0,1,1,0]] = "8";
+    fTable[[0,1,0,1,1]] = "'";
+    fTable[[0,1,1,1,1]] = "(";
+    fTable[[1,0,0,1,0]] = ")";
+    fTable[[1,1,1,0,0]] = ".";
+    fTable[[0,1,1,0,0]] = ",";
+    fTable[[1,1,0,0,0]] = "9";
+    fTable[[1,0,1,1,0]] = "0";
+    fTable[[1,0,1,1,1]] = "1";
+    fTable[[0,1,0,1,0]] = "4";
+    fTable[[0,0,1,0,1]] = "BL";
+    fTable[[1,0,0,0,0]] = "5";
+    fTable[[0,0,1,1,1]] = "7";
+    fTable[[1,1,1,1,0]] = ";";
+    fTable[[1,0,0,1,1]] = "2";
+    fTable[[1,1,1,0,1]] = "/";
+    fTable[[1,0,1,0,1]] = "6";
+    fTable[[1,0,0,0,1]] = "\"";
+    fTable[[0,1,0,0,0]] = "CR";
+    fTable[[0,0,0,1,0]] = "LF";
+    fTable[[0,0,1,0,0]] = " ";
+    fTable[[1,1,0,1,1]] = "ZZ";
+    fTable[[0,0,0,0,0]] = "NL";
+    fTable[[1,1,1,1,1]] = "SL";
+
+    if(shift === "l") {
+        return lTable[baudArray]; }
+    else if(shift === "f") {
+        return fTable[baudArray]; }
+    else { throw "incorrect shift"; }
+};
