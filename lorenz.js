@@ -240,3 +240,12 @@ var initWheels = function( ) {
                 "10101"+"1010";
     return wheels;
 };
+
+var charToBin = function( c ) {
+    if ( c === "1" || c === "0" ) {
+        return c.charCodeAt() - 48; // ASCII 48 = '0'
+    }
+    else {
+        throw "invalid char";
+    }
+};
