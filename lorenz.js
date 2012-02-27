@@ -246,10 +246,32 @@ var charToBin = function( c ) {
         return c.charCodeAt() - 48; // ASCII 48 = '0'
     }
     else {
+        console.log(c);
         throw "invalid char";
     }
 };
 
 var charXOR = function( a, b ) {
-    return (charToBin(a) + charToBin(b)) % 2;
+    return String.fromCharCode(
+        48 + (charToBin(a) + charToBin(b)) % 2);
+};
+
+for( var i = 0; i < 12; i++ ) {
+    pos[i] = 0;
+}
+
+var encipherLetter = function( letter, wheels, pos ) {
+    var result = [];
+    // do each of the five bits
+    for ( var i = 0; i < 5; i++ ) {
+        // key = Chi[i] + Psi[i]
+        var key = charXOR( 
+            wheels[i+2][pos[i+2]], 
+            wheels[i+7][pos[i+7]] );
+        result.push( charXOR( 
+            charToBaud(letter)[i],
+            key) );
+    }
+    // Lorenz machine only uses letters (no figures)
+    return baudToChar( result.join(""), "l" );
 };
