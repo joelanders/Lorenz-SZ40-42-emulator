@@ -249,3 +249,7 @@ var charToBin = function( c ) {
         throw "invalid char";
     }
 };
+
+var charXOR = function( a, b ) {
+    return (charToBin(a) + charToBin(b)) % 2;
+};
