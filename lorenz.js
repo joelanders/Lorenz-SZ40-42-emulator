@@ -256,6 +256,7 @@ var charXOR = function( a, b ) {
         48 + (charToBin(a) + charToBin(b)) % 2);
 };
 
+var pos = [];
 for( var i = 0; i < 12; i++ ) {
     pos[i] = 0;
 }
@@ -274,4 +275,29 @@ var encipherLetter = function( letter, wheels, pos ) {
     }
     // Lorenz machine only uses letters (no figures)
     return baudToChar( result.join(""), "l" );
+};
+
+var stepWheels = function( wheels, pos ) {
+
+    // the Chi wheels always step
+    for ( var i = 0; i < 5; i++ ) {
+        pos[i+2] = ( pos[i+2] + 1 ) % wheels[i+2].length;
+    }
+
+    // if Mu 37 is at a 1, step the Psi wheels
+    if ( wheels[0][pos[0]] === "1" ) {
+        for ( var i = 0; i < 5; i++ ) {
+            pos[i+7] = ( pos[i+7] + 1 ) % wheels[i+7].length;
+        }
+    }
+
+    // if Mu 61 is at a 1, step Mu 37
+    if ( wheels[1][pos[1]] === "1" ) {
+        pos[0] = ( pos[0] + 1 ) % 37;
+    }
+
+    // Mu 61 always steps
+    pos[1] = ( pos[1] + 1 ) % 61;
+
+    return pos;
 };
