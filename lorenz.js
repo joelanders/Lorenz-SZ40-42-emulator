@@ -301,3 +301,12 @@ var stepWheels = function( wheels, pos ) {
 
     return pos;
 };
+
+var encryptString = function( string, wheels, pos ) {
+    var result = [];
+    for ( var i = 0; i < string.length; i++ ) {
+        result.push( encipherLetter( string[i], wheels, pos ) );
+        pos = stepWheels( wheels, pos );
+    }
+    return result.join("");
+};
