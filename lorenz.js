@@ -1,5 +1,4 @@
 // converts a character to a Baudot sequence
-// "shift" is "l" or "f" (letter or figure)
 var charToBaud = function  ( aChar ) {
     var aTable = {
           "a" : "11000",
@@ -141,7 +140,8 @@ var baudToChar = function( baudArray, shift ) {
         return lTable[baudArray]; }
     else if(shift === "f") {
         return fTable[baudArray]; }
-    else { throw "incorrect shift"; }
+    else {
+        throw "incorrect shift"; }
 };
 
 var stringToBaudArray = function( inString ) {
